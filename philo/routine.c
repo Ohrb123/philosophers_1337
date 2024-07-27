@@ -58,6 +58,7 @@ static void	*ft_routine(void *data)
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
+	my_printf(philo->data, "is thinking", philo->id);
 	if (philo->id % 2 == 0)
 		my_usleep(50, philo->data);
 	while (!is_die(philo->data))

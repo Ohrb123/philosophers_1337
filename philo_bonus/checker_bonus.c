@@ -37,7 +37,7 @@ void	*dead_check(void *content)
 			exit(30);
 		}
 		sem_post(philo->philo_sem);
-		usleep(1000);
+		usleep(1000); //myusleep
 	}
 	return (NULL);
 }

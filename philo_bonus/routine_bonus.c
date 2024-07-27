@@ -54,6 +54,7 @@ static void	ft_routine(t_philo *philo)
 		ft_error ("Error while creating a thread...");
 	if (pthread_detach(monitor))
 		ft_error ("Error while creating a thread...");
+	my_printf(philo, "is thinking");
 	if (philo->id % 2 == 0)
 		my_usleep(philo->data->time_to_eat);
 	while (1)
@@ -72,7 +73,6 @@ static void	ft_routine(t_philo *philo)
 
 void	start_simulation(t_data *data)
 {
-	int			status;
 	int			i;
 
 	i = -1;
@@ -80,21 +80,10 @@ void	start_simulation(t_data *data)
 	while (++i < data->philos_nbr)
 	{
 		data->philos[i].pid = fork();
+		if (data->philos[i].pid == -1)
+			ft_error("ERROR : while forking");
 		if (data->philos[i].pid == 0)
 			ft_routine(&data->philos[i]);
 	}
-	while (1)
-	{
-		if (waitpid(-1, &status, WNOHANG) == -1)
-			break ;
-		if (WEXITSTATUS(status) == 30)
-		{
-			i = -1;
-			while (++i < data->philos_nbr)
-				kill(data->philos[i].pid, SIGKILL);
-			break ;
-		}
-	}
-	ft_close(data);
-	free(data->philos);
+	ft_done(data);
 }
