@@ -6,7 +6,7 @@
 /*   By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 17:14:10 by oelharbi          #+#    #+#             */
-/*   Updated: 2024/07/20 15:14:24 by oelharbi         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:50:31 by oelharbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ struct s_philo
 	size_t				last_meal;
 	pthread_mutex_t		philo_lock;
 	pthread_t			thread;
-	int					meals_nbr;
+	_Atomic int			meals_nbr;
 };
 
 struct s_data

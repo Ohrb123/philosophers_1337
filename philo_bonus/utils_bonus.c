@@ -12,27 +12,6 @@
 
 #include "philo_bonus.h"
 
-void	ft_done(t_data *data)
-{
-	int	status;
-	int	i;
-
-	while (1)
-	{
-		if (waitpid(-1, &status, WNOHANG) == -1)
-			break ;
-		if (WEXITSTATUS(status) == 30)
-		{
-			i = -1;
-			while (++i < data->philos_nbr)
-				kill(data->philos[i].pid, SIGKILL);
-			break ;
-		}
-	}
-	ft_close(data);
-	free(data->philos);
-}
-
 void	ft_close(t_data *data)
 {
 	int	i;

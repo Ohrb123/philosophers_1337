@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:26:57 by oelharbi          #+#    #+#             */
-/*   Updated: 2024/07/16 10:26:20 by oelharbi         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:17:11 by oelharbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ int	ft_atol(char *str)
 void	ft_parsing(t_data *data, char **av)
 {
 	data->philos_nbr = ft_atol(av[1]);
-	if (data->philos_nbr > 200 || data->philos_nbr <= 0)
-		ft_error("ERROR : Please enter a number of \
-philos in this range ]0 to 200]");
+	if (data->philos_nbr <= 0)
+		ft_error("ERROR : Please enter a number of philos");
 	data->time_to_die = ft_atol(av[2]);
 	data->time_to_eat = ft_atol(av[3]);
 	data->time_to_sleep = ft_atol(av[4]);

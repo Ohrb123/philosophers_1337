@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philos_checker_bonus.c                             :+:      :+:    :+:   */
+/*   checker_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrb <hrb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:35:12 by oelharbi          #+#    #+#             */
-/*   Updated: 2024/07/26 14:15:32 by hrb              ###   ########.fr       */
+/*   Updated: 2024/08/16 11:20:16 by oelharbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	*dead_check(void *content)
 			sem_wait(philo->data->print_sem);
 			printf("%ld\t%d\t%s\n", get_time() - philo->data->start, \
 			philo->id, "died");
-			exit(30);
+			exit(42);
 		}
 		sem_post(philo->philo_sem);
-		usleep(1000); //myusleep
+		usleep(1000);
 	}
 	return (NULL);
 }

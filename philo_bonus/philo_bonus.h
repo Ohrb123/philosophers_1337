@@ -40,11 +40,11 @@ typedef struct s_philo			t_philo;
 struct s_philo
 {
 	int					id;
-	int					meals_nbr;
 	pid_t				pid;
-	_Atomic size_t		last_meal;
-	sem_t				*philo_sem;
 	t_data				*data;
+	_Atomic size_t		last_meal;
+	int					meals_nbr;
+	sem_t				*philo_sem;
 };
 
 struct s_data
@@ -77,6 +77,5 @@ void	start_simulation(t_data *data);
 int		is_dead(t_data *data);
 void	ft_parsing(t_data *data, char **av);
 void	ft_close(t_data *data);
-void	ft_done(t_data *data);
 
 #endif

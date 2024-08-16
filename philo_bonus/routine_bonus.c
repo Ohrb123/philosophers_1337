@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads_creating_bonus.c                           :+:      :+:    :+:   */
+/*   routine_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hrb <hrb@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 10:37:41 by oelharbi          #+#    #+#             */
-/*   Updated: 2024/07/26 14:09:24 by hrb              ###   ########.fr       */
+/*   Updated: 2024/08/16 11:20:08 by oelharbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ static void	ft_routine(t_philo *philo)
 		ft_error ("Error while creating a thread...");
 	if (pthread_detach(monitor))
 		ft_error ("Error while creating a thread...");
-	my_printf(philo, "is thinking");
 	if (philo->id % 2 == 0)
+	{
+		my_printf(philo, "is thinking");
 		my_usleep(philo->data->time_to_eat);
+	}
 	while (1)
 	{
 		if (ft_forks(philo))
@@ -73,6 +75,7 @@ static void	ft_routine(t_philo *philo)
 
 void	start_simulation(t_data *data)
 {
+	int			status;
 	int			i;
 
 	i = -1;
@@ -80,10 +83,21 @@ void	start_simulation(t_data *data)
 	while (++i < data->philos_nbr)
 	{
 		data->philos[i].pid = fork();
-		if (data->philos[i].pid == -1)
-			ft_error("ERROR : while forking");
 		if (data->philos[i].pid == 0)
 			ft_routine(&data->philos[i]);
 	}
-	ft_done(data);
+	while (1)
+	{
+		if (waitpid(-1, &status, 0) == -1)
+			break ;
+		if (WEXITSTATUS(status) == 42)
+		{
+			i = -1;
+			while (++i < data->philos_nbr)
+				kill(data->philos[i].pid, SIGKILL);
+			break ;
+		}
+	}
+	ft_close(data);
+	free(data->philos);
 }

@@ -36,14 +36,14 @@ void	my_sem_init(t_data *data)
 	sem_unlink("print_sem");
 	sem_unlink("data_sem");
 	sem_unlink("forks_sem");
-	data->data_sem = sem_open("data_sem", O_CREAT, 0644, 1);
+	data->data_sem = sem_open("data_sem", O_CREAT | O_EXCL, 0644, 1);
 	if (data->data_sem == SEM_FAILED)
 		ft_error("ERROR while opnening data->data_sem");
 	data->forks_sem = \
-	sem_open("forks_sem", O_CREAT, 0644, data->philos_nbr);
+	sem_open("forks_sem", O_CREAT | O_EXCL, 0644, data->philos_nbr);
 	if (data->forks_sem == SEM_FAILED)
 		ft_error("ERROR while opnening data->forks_sem");
-	data->print_sem = sem_open("print_sem", O_CREAT, 0644, 1);
+	data->print_sem = sem_open("print_sem", O_CREAT | O_EXCL, 0644, 1);
 	if (data->print_sem == SEM_FAILED)
 		ft_error("ERROR while opnening data->print_sem");
 }

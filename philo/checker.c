@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philos_checker.c                                   :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:35:12 by oelharbi          #+#    #+#             */
-/*   Updated: 2024/07/20 15:03:40 by oelharbi         ###   ########.fr       */
+/*   Updated: 2024/08/15 18:24:52 by oelharbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	check_all_threads(t_data *data)
 	i = 0;
 	while (i < data->philos_nbr)
 	{
-		pthread_mutex_lock(&data->philos->philo_lock);
 		if (data->times_must_eat != -1337 && \
 		data->philos[i].meals_nbr > data->times_must_eat)
 		{
@@ -71,7 +70,6 @@ static int	check_all_threads(t_data *data)
 			pthread_mutex_unlock(&data->data_lock);
 			return (1);
 		}
-		pthread_mutex_unlock(&data->philos->philo_lock);
 		i++;
 	}
 	return (0);

@@ -6,13 +6,13 @@
 #    By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 12:05:04 by oelharbi          #+#    #+#              #
-#    Updated: 2024/07/20 15:17:32 by oelharbi         ###   ########.fr        #
+#    Updated: 2024/08/16 11:43:33 by oelharbi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 
 NAME = philo
 
@@ -20,22 +20,30 @@ HEADER = philo.h
 
 OBJ = parsing.o philo.o utils.o routine.o checker.o init_philos.o
 
+OBJ_DIR = ../.obj/
+
+OBJ_PFX = $(addprefix $(OBJ_DIR), $(notdir $(OBJ)))
+
 all: $(NAME)
 	@echo "\033[1;32mCompilation Completed Successfully! ✅\033[0;m"
 
-$(NAME) : $(OBJ) $(HEADER)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME) : $(OBJ_PFX)
+	@$(CC) $(CFLAGS) $(OBJ_PFX) -o $(NAME)
 
-%.o : %.c $(HEADER)
+$(OBJ_DIR)%.o : %.c $(HEADER)
+	@mkdir -p $(OBJ_DIR)
 	@echo "\033[0;34mCompiling $< .\033[0;m"
 	@$(CC) $(CFLAGS) -c $< -o $@
+# %.o : %.c $(HEADER)
+# 	@echo "\033[0;34mCompiling $< .\033[0;m"
+# 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@echo "\033[0;31mRemoving object files.\033[0;m"
 
 	@echo "\033[0;31mRemoving object files.\033[0;m"
 
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@echo "\033[1;32mCleaning DONE ✅\033[0;m"
 
 fclean: clean
