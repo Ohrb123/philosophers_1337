@@ -6,11 +6,20 @@
 /*   By: oelharbi <oelharbi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 18:58:49 by oelharbi          #+#    #+#             */
-/*   Updated: 2024/07/20 15:24:14 by oelharbi         ###   ########.fr       */
+/*   Updated: 2024/08/17 20:07:18 by oelharbi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	my_usleep(size_t time)
+{
+	size_t	start;
+
+	start = get_time();
+	while (get_time() - start < time)
+		usleep(500);
+}
 
 int	ft_error(char *str)
 {
